@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+
+    <h:body>
+        <p:dialog id="DialIngresar"
+                  widgetVar="newIngresar"
+                  modal="true"
+                  >
+            <f:facet name="header">
+                Registrar Personal
+            </f:facet>
+
+            <h:form id="AddForm">
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <p:outputLabel value="Dni: "/>
+                    <p:inputText maxlength="8" value="#{PersonalController.personalModel.dni}"
+                                 required="true" label="Dni">
+                    </p:inputText>
+
+                    <p:outputLabel value="Nombre: "/>
+                    <p:inputText maxlength="30" value="#{PersonalController.personalModel.nombre}" 
+                                 required="true" label="Nombre">
+                    </p:inputText>
+
+                    <p:outputLabel value="Apellido: "/>
+                    <p:inputText maxlength="30" value="#{PersonalController.personalModel.apellido}"
+                                 required="true"  label="Apellido">
+                    </p:inputText>
+
+                    <p:outputLabel value="Sexo: "/>
+                    <p:selectOneRadio  id ="consoles" value="#{PersonalController.personalModel.sexo}">                    
+                        <f:selectItem itemLabel="Masculino" itemValue="Masculino"  />
+                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />                           
+                    </p:selectOneRadio>
+
+                    <p:commandButton value="Registrar" icon="ui-ico-check"
+                                     actionListener="#{PersonalController.ingresar()}"
+                                     oncomplete="growlColour(); handleLoginRequest(xhr, status, args, 'newIngresar')"
+                                     update="AddForm :Form">
+                        <p:confirm header="Confirmar" message="¿Estás seguro?" icon="ui-icon-alert"/>
+                        <p:effect type="explode" event="click" />
+                    </p:commandButton>
+
+                    <p:commandButton value="Cancelar"
+                                     icon="ui-icon-close" 
+                                     onclick="PF('Ingresar').hide()"
+                                     immediate="true"/>
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Si  " type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="growlColour();"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+
+                </h:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
+    </h:body>
+</html>

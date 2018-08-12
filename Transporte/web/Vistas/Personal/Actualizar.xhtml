@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Personal</title>
+    </h:head>
+
+    <h:body>
+        <p:dialog id="DialActualizar"
+                  widgetVar="Actualizar" 
+                  modal="true"
+                  showEffect="">
+
+
+            <f:facet name="header">
+                Actualizar Personal
+            </f:facet>
+
+            <h:form id="UpdForm">
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <p:outputLabel value="Dni: "/>
+                    <p:inputText maxlength="10" 
+                                 value="#{PersonalController.personalModel.dni}" 
+                                 required="true"
+                                 label="Dni">
+                    </p:inputText>
+
+                    <p:outputLabel value="Nombre: "/>
+                    <p:inputText maxlength="30" value="#{PersonalController.personalModel.nombre}"
+                                 required="true"
+                                 label="Nombre">
+                    </p:inputText>
+
+                    <p:outputLabel value="Apellido: "/>
+                    <p:inputText maxlength="30" value="#{PersonalController.personalModel.apellido}"
+                                 required="true"
+                                 label="Apellido">
+                    </p:inputText>
+
+                    <p:outputLabel value="Sexo: "/>
+                    <p:selectOneButton value="#{PersonalController.personalModel.sexo}">
+                        <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                        <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                    </p:selectOneButton>
+
+                    <p:commandButton value="Modificar" icon="ui-con-check"
+                                     actionListener="#{PersonalController.actualizar()}"
+                                     oncomplete="growlColour(); hanleLoginRequest(xhr, status, args, 'newIngresar')"
+                                     update="UpdForm: Form "> 
+                        <p:confirm header="Confirmar" message="¿Estás seguro?" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Cancelar"
+                                     icon="ui-icon-close"
+                                     onclick="PF('Actualizar').hide"
+                                     immediate="true"/>
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Si  " type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+
+
+                </h:panelGrid>         
+            </h:form>
+        </p:dialog>
+    </h:body> 
+
+</html>
